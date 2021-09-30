@@ -23,7 +23,8 @@
 
 ## 設計書
 [ワイヤーフレーム](https://docs.google.com/spreadsheets/d/1JY4gyqfhfQ_6E8SVisVq7lGUvXLSO4nbdqUHRy0MTow/edit#gid=0)<br>
-[画面遷移図](https://app.diagrams.net/#G1kPh5F8uyD5Jn1fGE5mvuaeZJqSoLiYIz)
+[画面遷移図](https://app.diagrams.net/#G1kPh5F8uyD5Jn1fGE5mvuaeZJqSoLiYIz)<br>
+[ER図](https://app.diagrams.net/#G1-3qRFE8nuUyYjVoMKG1mlXuWzRT6hA4T)
 ## チャレンジ要素一覧
 https://docs.google.com/spreadsheets/d/1cxSXTDflwNz_hervXeqfft2JxGfeZaMIvpbY2N66PFQ/edit#gid=0
 
