@@ -1,4 +1,4 @@
-# 古今東西のゲームを語ろう
+# GameGathering
 
 ## サイト概要
 古今東西のゲーム情報が集まるサイトです！
@@ -22,7 +22,7 @@
 同好の人たちと同じゲームについて語り合う
 
 ## 設計書
-現状無し
+
 
 ## チャレンジ要素一覧
 https://docs.google.com/spreadsheets/d/1cxSXTDflwNz_hervXeqfft2JxGfeZaMIvpbY2N66PFQ/edit#gid=0
