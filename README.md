@@ -26,6 +26,7 @@
 [画面遷移図](https://app.diagrams.net/#G1kPh5F8uyD5Jn1fGE5mvuaeZJqSoLiYIz)<br>
 [ER図](https://app.diagrams.net/#G1-3qRFE8nuUyYjVoMKG1mlXuWzRT6hA4T)<br>
 [テーブル定義書](https://docs.google.com/spreadsheets/d/1hf-uL80ab66lpKWtefRmWdISSBqLo2rn8sLA7DfY3fs/edit#gid=0)<br>
+[アプリケーション詳細設定](https://docs.google.com/spreadsheets/d/1QTHVv6LdqknHhcpsw8zB3geVBznLNEbk1o8irdw18-k/edit#gid=0)<br>
 ## チャレンジ要素一覧
 https://docs.google.com/spreadsheets/d/1cxSXTDflwNz_hervXeqfft2JxGfeZaMIvpbY2N66PFQ/edit#gid=0
 
