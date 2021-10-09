@@ -13,3 +13,6 @@
  *= require_tree .
  *= require_self
  */
+@import "font-awesome";
+@import "jquery.tagit";       // 記述の順番に注意
+@import "tagit.ui-zendesk";   // こっちを後に書かないと、タグ削除（ x ）が表示されない

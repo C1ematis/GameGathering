@@ -1,0 +1,2 @@
+class MachineRelation < ApplicationRecord
+end

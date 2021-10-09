@@ -1,0 +1,2 @@
+class GameComent < ApplicationRecord
+end

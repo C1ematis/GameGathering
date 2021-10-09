@@ -1,0 +1,6 @@
+<h1>ユーザーページ</h1>
+<% if @user == current_user %>
+<!--削除--><%= @user.birth %>
+<%= link_to "登録情報変更" , edit_user_registration_path %>
+<% end %>
+ユーザー名：<%= @user.name %>

@@ -10,6 +10,24 @@
   </head>
 
   <body>
+    <header>
+      <% if user_signed_in? %>
+        <%= current_user.name %> : <%= current_user.role %>
+        <%= link_to "info" , info_path %>
+        <%= link_to "マイページ" , users_path(id: current_user.id) %>
+        <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+      <% else %>
+        <%= link_to "info" , info_path %>
+        <%= link_to 'アカウント登録', new_user_registration_path %>
+        <%= link_to 'ログイン', user_session_path %>
+      <% end %>
+    </header>
+
+    <main>
     <%= yield %>
+    </main>
+
+    <footer>
+    </footer>
   </body>
 </html>
