@@ -16,3 +16,54 @@
 @import "font-awesome";
 @import "jquery.tagit";       // 記述の順番に注意
 @import "tagit.ui-zendesk";   // こっちを後に書かないと、タグ削除（ x ）が表示されない
+
+body{
+  margin: 10px;
+  background-color: #f0f0f0;
+}
+header{
+  height: auto;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px #AAA solid;
+  background-color: #FFF;
+}
+.side{
+  width: 234px;
+  align-self: flex-start;
+  padding: 10px;
+  border: 1px #AAA solid;
+  background-color: #FFF;
+}
+.main{
+  width: calc(100% - 250px);
+  margin-left: 10px;
+  padding: 10px;
+  border: 1px #AAA solid;
+  background-color: #FFF;
+}
+
+.search-form{
+  form{
+    position: relative;
+  }
+  input[type="search"]{
+    height: 1.96em;
+    margin-right: 43px;
+    width: 185px;
+    &:focus{
+      outline: 0;
+    }
+  }
+  input[type="submit"]{
+    position: absolute;
+    right: 4px;
+    outline: 0;
+  }
+}
+
+.side-table{
+  td{
+    border-top:1px solid #AAA;
+  }
+}

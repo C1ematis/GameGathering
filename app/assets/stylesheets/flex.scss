@@ -1,0 +1,138 @@
+//--Flex--//
+.flex{
+  display: flex;
+}//インライン要素に対してFlex
+.inline-flex{
+  display: inline-flex;
+}
+
+//子要素の並ぶ向き
+//左から右
+.flex-direction-row{
+  flex-direction: row;
+}//右から左(初期値の逆)
+.flex-direction-row-reverse{
+  flex-direction: row-reverse ;
+}//上から下
+.flex-direction-column{
+  flex-direction: column ;
+}//下から上
+.flex-direction-column-reverse{
+  flex-direction: column-reverse;
+}
+
+//子要素の折り返し
+//折り返しなし
+.flex-wrap-nowrap{
+  flex-wrap: nowrap;
+}//折り返し、上から下
+.flex-wrap-wrap{
+  flex-wrap: wrap;
+}//折り返し、下から上
+.flex-wrap-wrap-reverse{
+  flex-wrap: wrap-reverse;
+}
+
+//子要素の水平方向の揃え
+//左揃え
+.justify-content-flex-start{
+  justify-content: flex-start;
+}//右揃え(初期値の逆)
+.justify-content-flex-end{
+  justify-content: flex-end;
+}//中央揃え
+.justify-content-center{
+  justify-content: center;
+}//両端と均等に間隔をあけて配置
+.justify-content-space-between{
+  justify-content: space-between;
+}//両端から均等に間隔をあけて配置
+.justify-content-space-around{
+  justify-content: space-around;
+}
+
+//子要素の垂直方向の揃え
+//親要素の高さ 又は 一番長い子要素に合わせる
+.align-items-stretch{
+  align-items: stretch;
+}//上揃え
+.align-items-flex-start{
+  align-items: flex-start;
+}//下揃え
+.align-items-flex-end{
+  align-items: flex-end;
+}//中央揃え
+.align-items-center{
+  align-items: center;
+}//ベースラインに揃える
+.align-items-baseline{
+  align-items: baseline;
+}
+//子要素が複数時の垂直方向の揃え
+//親要素の高さに合わせ広げて配置
+.align-content-stretch{
+  align-content: stretch;
+}//上揃え
+.align-content-flex-start {
+  align-content: flex-start ;
+}//下揃え
+.align-content-flex-end{
+  align-content: flex-end;
+}//中央揃え
+.align-content-center{
+  align-content: center;
+}//両端と均等に間隔をあけて配置
+.align-content-space-between{
+  align-content: space-between;
+}//両端から均等に間隔をあけて配置
+.align-content-space-around{
+  align-content: space-around;
+}
+
+/***********************************************************************************************
+子要素に対して
+
+数字が小さい順に並び替え
+order: n;
+n：整数。初期値は 0
+
+他要素に対して子要素の伸びる比率
+flex-grow: n;
+n：正の実数。初期値は 0
+
+他要素に対して子要素の縮むる比率
+flex-shrink: n;
+n：正の実数。初期値は 1
+
+子要素の幅
+flex-basis: n;
+n：wwidthと同じ指定ができる。初期値は auto
+
+flex-grow、flex-shrink、flex-basisをまとめて指定
+flex: x y z;
+初期値は 0 1 auto
+
+子要素の垂直方向の揃え
+align-self: abc;
+  auto（初期値）… 親要素の align-items の値を継承
+  stretch … 親要素の高さ、またはコンテンツの一番多い子要素の高さに合わせて広げて配置
+  flex-start … 親要素の開始位置から配置。上揃え。
+  flex-end … 親要素の終点から配置。下揃え。
+  center … 中央揃え
+  baseline … ベースラインで揃える
+
+参考サイト
+https://www.webcreatorbox.com/tech/css-flexbox-cheat-sheet
+
+*************************************************************************************************/
+
+//右寄せ
+.text-align-right{
+  text-align: right;
+}//中央寄せ
+.text-align-center{
+  text-align: center;
+}//左寄せ
+.text-align-left{
+  text-align: left;
+}

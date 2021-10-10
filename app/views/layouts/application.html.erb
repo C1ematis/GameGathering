@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Gg</title>
+    <title>GG</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -10,21 +10,35 @@
   </head>
 
   <body>
-    <header>
-      <% if user_signed_in? %>
-        <%= current_user.name %> : <%= current_user.role %>
-        <%= link_to "info" , info_path %>
-        <%= link_to "マイページ" , users_path(id: current_user.id) %>
-        <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
-      <% else %>
-        <%= link_to "info" , info_path %>
-        <%= link_to 'アカウント登録', new_user_registration_path %>
-        <%= link_to 'ログイン', user_session_path %>
-      <% end %>
+    <header class="flex justify-content-space-between">
+      <div>
+        <% if user_signed_in? %>
+          <%= current_user.name %> : <%= current_user.role %>
+          <%= link_to "info" , info_path %>
+          <%= link_to "マイページ" , my_path %>
+          <%= link_to "test2ページ" , user_path("test2") %>
+          <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+        <% else %>
+          <%= link_to "info" , info_path %>
+          <%= link_to 'アカウント登録', new_user_registration_path %>
+          <%= link_to 'ログイン', user_session_path %>
+        <% end %>
+      </div>
+      <div class="search-form">
+        <%= form_with url: search_path do |f| %>
+          <%= f.search_field :word, placeholder: "サイト内検索" %>
+          <%= f.submit "検索" %>
+        <% end %>
+      </div>
     </header>
 
-    <main>
-    <%= yield %>
+    <main class="flex">
+      <div class="side">
+        <%= render "layouts/side" %>
+      </div>
+      <div class="main">
+        <%= yield %>
+      </div>
     </main>
 
     <footer>

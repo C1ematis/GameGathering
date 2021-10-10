@@ -1,0 +1,30 @@
+//---margin---//
+@for $i from 1 through 5 {
+  .mt-#{$i}{
+    margin-top: 10px * $i;
+  }
+  .mb-#{$i}{
+    margin-bottom: 10px * $i;
+  }
+  .ml-#{$i}{
+    margin-left: 10px * $i;
+  }
+  .mr-#{$i}{
+    margin-right: 10px * $i;
+  }
+}
+//---padding---//
+@for $i from 1 through 5 {
+  .pt-#{$i}{
+    padding-top: 10px * $i;
+  }
+  .pb-#{$i}{
+    padding-bottom: 10px * $i;
+  }
+  .pl-#{$i}{
+    padding-left: 10px * $i;
+  }
+  .pr-#{$i}{
+    padding-right: 10px * $i;
+  }
+}

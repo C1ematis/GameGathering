@@ -1,7 +1,12 @@
-<h2>Sign up</h2>
+<h2>アカウント登録</h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name, autofocus: true, autocomplete: "name" %>
+  </div>
 
   <div class="field">
     <%= f.label :email %><br />
@@ -9,9 +14,14 @@
   </div>
 
   <div class="field">
+    <%= f.label :birth %>(登録後に変更出来ませんので、ご注意下さい)<br />
+    <%= raw sprintf(f.date_select( :birth, prompt:"--", use_month_numbers:true, start_year:Time.now.year, end_year:1900, date_separator:'%s'),'年','月') + '日' %>
+  </div>
+
+  <div class="field">
     <%= f.label :password %>
     <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> 文字以上)</em>
+      (<%= @minimum_password_length %> 文字以上)
     <% end %><br />
     <%= f.password_field :password, autocomplete: "new-password" %>
   </div>
@@ -22,7 +32,7 @@
   </div>
 
   <div class="actions">
-    <%= f.submit "新規登録"%>
+    <%= f.submit "新規会員登録"%>
   </div>
 <% end %>
 

@@ -1,0 +1,69 @@
+<h1>サイドバー</h1>
+<% s_genres = Genre.all %>
+<% s_machines = Machine.all %>
+<% s_tags = Tag.joins(:tag_relations).group(:tag_id).order('count(game_id) desc').limit(10) %>
+
+<table class="side-table">
+  <tr>
+    <th>
+      <div class="text-align-right mb-2">
+        <div class="search-form">
+          <%= form_with url: game_index_path do |f| %>
+            <%= f.search_field :word, placeholder: "ゲームタイトル" %>
+            <%= f.submit "検索" %>
+          <% end %>
+        </div>
+      </div>
+    </th>
+  </tr>
+  <tr>
+    <td>
+      <p>ジャンル</p>
+      <div>
+        <% s_genres.each do |genre| %>
+          <div>
+            <%= genre.name %>(<%= genre.name.count %>)
+          </div>
+        <% end %>
+      </div>
+      <div class="text-align-right" ><%= link_to "詳細", genres_path %></div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p>機種</p>
+      <div>
+        <% s_machines.each do |machine| %>
+          <div>
+            <%= machine.name %>(<%= machine.name.count %>)
+          </div>
+        <% end %>
+      </div>
+      <div class="text-align-right" ><%= link_to "詳細", machines_path %></div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p>タグ</p>
+      <div>
+        <% s_tags.each do |tag| %>
+          <div>
+            <%= tag.name %>(<%= tag.name.count %>)
+          </div>
+        <% end %>
+      </div>
+      <div class="text-align-right" ><%= link_to "一覧", tags_path %></div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p>管理</p>
+      <div><%= link_to "トップページ", admin_path %></div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p>最新の10件</p>
+    </td>
+  </tr>
+</table>

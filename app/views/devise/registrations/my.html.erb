@@ -1,0 +1,5 @@
+<h1>マイページ</h1>
+<!--削除--><%= @user.birth %>
+<%= link_to "登録情報変更" , edit_user_registration_path(edit: "user") %>
+<%= link_to "パスワード変更" , edit_user_registration_path(edit: "password") %>
+ユーザー名：<%= @user.name %>
