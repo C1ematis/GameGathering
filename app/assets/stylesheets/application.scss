@@ -42,7 +42,7 @@ header{
   border: 1px #AAA solid;
   background-color: #FFF;
 }
-
+//検索バー
 .search-form{
   form{
     position: relative;
@@ -57,13 +57,60 @@ header{
   }
   input[type="submit"]{
     position: absolute;
-    right: 4px;
+    left: 182px;
     outline: 0;
   }
 }
-
+//textフォーム
+.text_area{
+  width: 100%;
+  padding: 5px;
+}
+//サイドバー
 .side-table{
   td{
     border-top:1px solid #AAA;
   }
+}
+
+.balloon-base{
+  position   : relative;
+
+  &:hover{
+    .balloon{
+      display: inline;
+    }
+  }
+}
+.balloon{
+  display: none;
+  width: auto;
+  position: absolute;
+  left : 0.1em;
+  bottom : 2.5em;
+  padding: 2px 5px;
+  background-color: #d5d5d5;
+  font-size: 80%;
+  color: #000;
+
+  &:after{
+    border-top: 12px solid #d5d5d5;  /* 吹き出し口の幅・色 */
+    border-right: 10px solid transparent;     /* 吹き出し口の高さ１／２ */
+    border-left: 10px solid transparent;  /* 吹き出し口の高さ１／２ */
+    position: absolute;
+    left : 0%;
+    bottom: -12px;
+    content: "";
+  }
+}
+
+.FontAwesome{
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+}
+.font-red{
+  color: red;
+}
+.a-underline{
+  text-decoration: none;
 }

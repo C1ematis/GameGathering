@@ -1,0 +1,17 @@
+<h1>ジャンル詳細ページ</h1>
+<% @genres.each do |genre| %>
+  <div><%= genre.name + "(#{genre.games.count})" %></div>
+  <div><%= genre.body %></div>
+  <div class="text-align-right"><%= link_to "編集", genres_path(id: genre.id) %></div>
+<% end %>
+
+<%= form_with model: @genre do |f| %>
+  <div>
+    <%= f.text_field :name, placeholder: "ジャンル名" %>
+  </div>
+  <div>
+    <%= f.text_area :body, placeholder: "ジャンル説明", oninput: "textAreaHeightSet(this)", onchange: "textAreaHeightSet(this)", class:"text_area" %>
+  </div>
+  <%= f.submit %>
+<% end %>
+

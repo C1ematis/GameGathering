@@ -1,0 +1,18 @@
+<h1>機種詳細ページ</h1>
+<% @machines.each do |machine| %>
+  <div><%= machine.name %></div>
+  <div><%= machine.body %></div>
+  <div class="text-align-right"><%= link_to "編集", machines_path(id: machine.id) %></div>
+<% end %>
+
+<%= form_with model: @machine do |f| %>
+  <div>
+    <%= f.text_field :name, placeholder: "機種名" %>
+  </div>
+  <div>
+    <%= f.text_area :body, placeholder: "機種説明", oninput: "textAreaHeightSet(this)", onchange: "textAreaHeightSet(this)", class:"text_area" %>
+  </div>
+  <%= f.submit "追加登録" %>
+<% end %>
+
+

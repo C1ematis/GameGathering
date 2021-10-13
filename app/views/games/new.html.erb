@@ -1,0 +1,34 @@
+<h1>ゲーム投稿</h1>
+<%= form_with model: @game do |f| %>
+  <div>
+    <%= f.text_field :name, placeholder: "ゲームタイトル" %>
+    <%= f.text_field :kana, placeholder: "ゲームタイトル(かな)" %>
+  </div>
+  <div>
+    <%= f.text_area :body, placeholder: "ゲーム概要", oninput: "textAreaHeightSet(this)", onchange: "textAreaHeightSet(this)", class:"text_area" %>
+  </div>
+  <div>
+    <%= f.label "ジャンル：" %>
+    <%= f.collection_check_boxes :genre_ids, Genre.all, :id, :name, include_hidden: false %>
+  </div>
+  <div>
+    <%= f.label "機種：" %>
+    <%= f.collection_check_boxes :machine_ids, Machine.all, :id, :name, include_hidden: false %>
+  </div>
+  <div>
+    <%= f.text_field :tag_name, placeholder:"タグ[ , で区切ってください]" %>
+  </div>
+  <div>
+    <%= f.text_field :cero, placeholder: "対象年齢" %>
+  </div>
+  <div>
+    <%= f.text_area :official, placeholder: "公式サイト", oninput: "textAreaHeightSet(this)", onchange: "textAreaHeightSet(this)", class:"text_area" %>
+  </div>
+  <div>
+    <%= f.text_area :wiki, placeholder: "攻略サイト", oninput: "textAreaHeightSet(this)", onchange: "textAreaHeightSet(this)", class:"text_area" %>
+  </div>
+  <div>
+    <%= f.text_field :day, placeholder: "発売日" %>
+  </div>
+  <%= f.submit %>
+<% end %>

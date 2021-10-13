@@ -11,4 +11,5 @@ class HomesController < ApplicationController
   def search
     @word = params[:word]
   end
+
 end

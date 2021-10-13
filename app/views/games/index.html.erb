@@ -1,0 +1,32 @@
+<h1>ゲーム検索</h1>
+<%= link_to "ゲーム登録", new_game_path %>
+<%= form_with url: games_path, method: :get, skip_enforcing_utf8: true, local: true do |f| %>
+  <div>
+    <%= f.search_field :word, value: @word, placeholder: "ゲームタイトル" %>
+  </div>
+  <%= f.submit "検索",name: nil %>
+<% end %>
+<%= @word %>
+<% @games.each do |game| %>
+<table class="w-100 table table-border mt-2">
+  <tr>
+    <td width="33%">
+      <%= link_to "#{game.name}", game_path(game.name) %>
+    </td>
+    <td style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden; max-width: 0" colspan="2">
+      <%= game.body %>
+    </td>
+  </tr>
+  <tr>
+    <td><% game.genres.each do |genre| %>
+      <%= genre.name %>
+    <% end %></td>
+    <td><% game.machines.each do |machine| %>
+      <%= machine.name %>
+    <% end %></td>
+    <td width="33%"><% game.tags.each do |tag| %>
+      <%= tag.name %>
+    <% end %></td>
+  </tr>
+</table>
+<% end %>

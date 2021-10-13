@@ -5,21 +5,25 @@ class MachinesController < ApplicationController
     if @machine.save
       redirect_to machines_path
     else
-      render show
+      render index
     end
   end
 
-  def show
+  def index
     @machines = Machine.all
-    @machine = Machine.new
+    if params[:id]
+      @machine = Machine.find(params[:id])
+    else
+      @machine = Machine.new
+    end
   end
-
+  
   def update
     @machine = Machine.find(params[:id])
     if @machine.update(machine_params)
       redirect_to machines_path
     else
-      render show
+      render index
     end
   end
 

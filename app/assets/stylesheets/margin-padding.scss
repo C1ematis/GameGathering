@@ -28,3 +28,9 @@
     padding-right: 10px * $i;
   }
 }
+//幅100％
+@for $i from 1 through 10 {
+  .w-#{$i}0{
+    width: 10% * $i;
+  }
+}

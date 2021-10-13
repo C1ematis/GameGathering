@@ -1,0 +1,107 @@
+<h1>ゲーム詳細</h1>
+<% if params[:edit] == "true" %>
+  <%= form_with model: @game do |f| %>
+    <div>
+      <%= f.text_field :name, placeholder: "ゲームタイトル" %>
+      <%= f.text_field :kana, placeholder: "ゲームタイトル(かな)" %>
+    </div>
+    <div>
+      <%= f.text_area :body, placeholder: "ゲーム概要", oninput: "textAreaHeightSet(this)", onchange: "textAreaHeightSet(this)", class:"text_area" %>
+    </div>
+    <div>
+      <%= f.label "ジャンル：" %>
+      <%= f.collection_check_boxes :genre_ids, Genre.all, :id, :name, include_hidden: false %>
+    </div>
+    <div>
+      <%= f.label "機種：" %>
+      <%= f.collection_check_boxes :machine_ids, Machine.all, :id, :name, include_hidden: false %>
+    </div>
+    <div>
+      <%= f.text_field :cero, placeholder: "対象年齢" %>
+    </div>
+    <div>
+      <%= f.text_area :official, placeholder: "公式サイト", oninput: "textAreaHeightSet(this)", onchange: "textAreaHeightSet(this)", class:"text_area" %>
+    </div>
+    <div>
+      <%= f.text_area :wiki, placeholder: "攻略サイト", oninput: "textAreaHeightSet(this)", onchange: "textAreaHeightSet(this)", class:"text_area" %>
+    </div>
+    <div>
+      <%= f.text_field :day, placeholder: "発売日" %>
+    </div>
+    <%= f.submit %>
+  <% end %>
+<% else %>
+  <table class="w-100 table table-border table-oddline-back">
+    <tr>
+      <td class="table-mini">
+        ゲームタイトル
+        <%= link_to "https://www.google.co.jp/search?q=#{@game.name}", target: :_blank, rel: "noopener noreferrer", class:"balloon-base" do %><i class="fas fa-search"></i><span class="balloon">ゲームタイトルで検索</span><% end %>
+      </td>
+      <td colspan="3"><%= @game.name %>(<%= @game.kana %>)</td>
+    </tr>
+    <tr>
+      <td>ジャンル</td>
+      <td class="w-40">
+        <% @game.genres.each do |g| %>
+          <%= g.name %>&nbsp;
+        <% end %>
+      </td>
+      <td>機種</td>
+      <td>
+        <% @game.machines.each do |g| %>
+          <%= g.name %>&nbsp;
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td>対象年齢</td>
+      <td><%= @game.cero %></td>
+      <td class="w-10">発売日</td>
+      <td><%= @game.day %></td>
+    </tr>
+   <tr>
+      <td>公式サイト</td>
+      <td colspan="3">
+        <% @game.official.split(/\R/).each do |url| %>
+          <%= link_to url ,url, target: :_blank, rel: "noopener noreferrer" %><br>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td>攻略サイト</td>
+      <td colspan="3">
+        <% @game.wiki.split(/\R/).each do |url| %>
+          <%= link_to url ,url, target: :_blank, rel: "noopener noreferrer" %><br>
+        <% end %>
+      </td>
+    </tr>
+  </table>
+  <div class="text-align-right"><%= link_to "編集", game_path(@game.name, edit: true) %></div>
+  <div class="mb-3">
+    <div class="TagForm pr-2">
+      <button type="button" class="TagEdit" >タグ編集</button>
+      <button type="button" class="TagEdit" hidden>編集完了</button>
+    </div>
+    <div class="TagForm">
+      <ul class="TagList">
+        <% @game.tags.each do |g| %>
+          <li class="TagItem">
+            <%= link_to  g.name, games_path, class:"a-underline TagItem-name" %><%= link_to  "\uf00d", tag_path(g.id, game_name: @game.name), method: :delete, class:"FontAwesome font-red a-underline ml-1" %>
+          </li>
+        <% end %>
+      </ul>
+      <div class="TagInput mt-1">
+        <%= form_with model: @game, url: tags_path, method: :post do |f| %>
+          <%= f.hidden_field :id, value: @game.id %>
+          <%= f.text_field :tag_name %>
+          <%= f.submit "登録" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div>ゲーム概要</div>
+    <div><%= @game.body %></div>
+  </div>
+
+<% end %>

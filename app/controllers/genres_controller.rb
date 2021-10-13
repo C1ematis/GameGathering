@@ -5,13 +5,17 @@ class GenresController < ApplicationController
     if @genre.save
       redirect_to genres_path
     else
-      render show
+      render index
     end
   end
 
-  def show
+  def index
     @genres = Genre.all
-    @genre = Genre.new
+    if params[:id]
+      @genre = Genre.find(params[:id])
+    else
+      @genre = Genre.new
+    end
   end
 
   def update
@@ -19,7 +23,7 @@ class GenresController < ApplicationController
     if @genre.update(genre_params)
       redirect_to genres_path
     else
-      render show
+      render index
     end
   end
 
