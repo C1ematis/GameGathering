@@ -1,0 +1,61 @@
+<h1><%= @game.name %>のレビュー投稿</h1>
+<%= form_with model: [@game, @review],url: game_reviews_path, local: true do |f| %>
+  <div>
+    <%= f.text_area :body, placeholder: "レビュー内容", oninput: "textAreaHeightSet(this)", onchange: "textAreaHeightSet(this)", class:"text_area" %>
+  </div>
+  <div>
+    <%= f.text_field :hour, placeholder: "プレイ時間(h)" %>
+  </div>
+  <div>
+    <div class="star" id="story-rate">
+      <%= f.hidden_field :story %>
+    </div>
+    <script>
+      $("#story-rate").empty();
+      $('#story-rate').html("<span>ストーリー : </span>");
+      $("#story-rate").raty({
+        size: 36,
+        starOff: '<%= asset_path('star-off.png') %>',
+        starOn: '<%= asset_path('star-on.png') %>',
+        starHalf: '<%= asset_path('star-half.png') %>',
+        scoreName: 'review[story]',
+        half: true,
+      })
+    </script>
+    <div class="star" id="system-rate">
+      <%= f.hidden_field :system %>
+    </div>
+    <script>
+      $("#system-rate").empty();
+      $('#system-rate').html("<span>操作・システム : </span>");
+      $("#system-rate").raty({
+        size: 36,
+        starOff: '<%= asset_path('star-off.png') %>',
+        starOn: '<%= asset_path('star-on.png') %>',
+        starHalf: '<%= asset_path('star-half.png') %>',
+        scoreName: 'review[system]',
+        half: true,
+      })
+    </script>
+    <div class="star" id="total-rate">
+      <%= f.hidden_field :total %>
+    </div>
+    <script>
+      $("#total-rate").empty();
+      $('#total-rate').html("<span>総合評価 : </span>");
+      $("#total-rate").raty({
+        size: 36,
+        starOff: '<%= asset_path('star-off.png') %>',
+        starOn: '<%= asset_path('star-on.png') %>',
+        starHalf: '<%= asset_path('star-half.png') %>',
+        scoreName: 'review[total]',
+        half: true,
+      })
+    </script>
+  </div>
+  <div>
+    <%= f.check_box :is_spoiler %>
+    <%= f.label "ネタバレ有り" %>
+  </div>
+  <%= f.submit %>
+<% end %>

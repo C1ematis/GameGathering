@@ -1,0 +1,73 @@
+<h1><%= @game.name %>のレビュー一覧</h1>
+<div><%= link_to "レビュー投稿", new_game_review_path(game_name: @game.name) %></div>
+<table class="ml-1 review-table">
+  <% @reviews.each do |review| %>
+  <tr>
+    <td>
+      <div><%= link_to review.user.name, user_path(review.user.name) %></div>
+      <div>プレイ時間：<%= review.hour %></div>
+    </td>
+    <td><div id="story-rate-<%= review.id %>"></div></td>
+      <script>
+        $('#story-rate-<%= review.id %>').empty();
+        $('#story-rate-<%= review.id %>').html("<span>ストーリー</span>");
+        $('#story-rate-<%= review.id %>').raty({
+          size: 36,
+          starOff:  '<%= asset_path('star-off.png') %>',
+          starOn : '<%= asset_path('star-on.png') %>',
+          starHalf: '<%= asset_path('star-half.png') %>',
+          half: true,
+          readOnly: true,
+          score: <%= review.story %>,
+        });
+        $('#story-rate-<%= review.id %> img').wrapAll("<div class=\"flex flex-wrap-nowrap\">")
+      </script>
+    <td><div id="system-rate-<%= review.id %>"></div></td>
+      <script>
+        $('#system-rate-<%= review.id %>').empty();
+        $('#system-rate-<%= review.id %>').html("<span>操作・システム</span>")
+        $('#system-rate-<%= review.id %>').raty({
+          size: 36,
+          starOff:  '<%= asset_path('star-off.png') %>',
+          starOn : '<%= asset_path('star-on.png') %>',
+          starHalf: '<%= asset_path('star-half.png') %>',
+          half: true,
+          readOnly: true,
+          score: <%= review.system %>,
+        });
+        $('#system-rate-<%= review.id %> img').wrapAll("<div class=\"flex flex-wrap-nowrap\">")
+      </script>
+    <td><div id="total-rate-<%= review.id %>"></div></td>
+      <script>
+        $('#total-rate-<%= review.id %>').empty();
+        $('#total-rate-<%= review.id %>').html("<span>総合</span>");
+        $('#total-rate-<%= review.id %>').raty({
+          size: 36,
+          starOff:  '<%= asset_path('star-off.png') %>',
+          starOn : '<%= asset_path('star-on.png') %>',
+          starHalf: '<%= asset_path('star-half.png') %>',
+          half: true,
+          readOnly: true,
+          score: <%= review.total %>,
+        });
+        $('#total-rate-<%= review.id %> img').wrapAll("<div class=\"flex flex-wrap-nowrap\">")
+      </script>
+  </tr>
+  <tr>
+    <% if review.is_spoiler? %>
+      <td colspan="4" class="pt-1 pb-2 pl-1">
+        <input type="button" id="button<%= review.id %>" value="ネタバレを含みます">
+        <span id="hidden<%= review.id %>"></span>
+        <script>
+          $("#button<%= review.id %>").click(function(){
+            $("#hidden<%= review.id %>").replaceWith('<span id="hidden<%= review.id %>" style="white-space:pre-wrap" ><%= review.body.gsub(/\R/, '\n') %></span>');
+            $("#button<%= review.id %>").remove();
+          });
+        </script>
+      </td>
+    <% else %>
+      <td colspan="4" style="white-space:pre-wrap" class="pt-1 pb-2 pl-1"><%= review.body %></td>
+    <% end %>
+    </tr>
+  <% end %>
+</table>

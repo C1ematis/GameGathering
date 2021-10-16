@@ -15,20 +15,20 @@ Rails.application.routes.draw do
   post '/search' => 'homes#search'
   get '/info' => 'homes#info'
   scope 'info' do
-    resource :coments, only:[:show,:create]
+    resources :coments, only:[:index,:create]
   end
 
   resources :games, except:[:edit, :destroy], param: :name do
-    resource :game_coments, only:[:show,:create]
-    resource :coments, only:[:show,:create]
-    resource :reviews, only:[:show,:new,:create]
+    resources :game_coments, only:[:index,:create]
+    resources :coments, only:[:index,:create]
+    resources :reviews, only:[:index,:new,:create]
     resource :game_favorites, only: [:create,:destroy]
   end
   resources :genres, only:[:index,:create,:update] do
-    resource :coments, only:[:show,:create]
+    resources :coments, only:[:index,:create]
   end
   resources :machines, only:[:index,:create,:update] do
-    resource :coments, only:[:show,:create]
+    resources :coments, only:[:index,:create]
   end
   resources :tags, only:[:index, :create, :destroy]
 

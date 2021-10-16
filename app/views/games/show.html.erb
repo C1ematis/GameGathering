@@ -1,6 +1,6 @@
 <h1>ゲーム詳細</h1>
 <% if params[:edit] == "true" %>
-  <%= form_with model: @game do |f| %>
+  <%= form_with model: @game, local: true do |f| %>
     <div>
       <%= f.text_field :name, placeholder: "ゲームタイトル" %>
       <%= f.text_field :kana, placeholder: "ゲームタイトル(かな)" %>
@@ -78,6 +78,7 @@
   </table>
   <div class="text-align-right"><%= link_to "編集", game_path(@game.name, edit: true) %></div>
   <div class="mb-3">
+    <%= $unique %><%= $unique = "" %>
     <div class="TagForm pr-2">
       <button type="button" class="TagEdit" >タグ編集</button>
       <button type="button" class="TagEdit" hidden>編集完了</button>
@@ -91,7 +92,7 @@
         <% end %>
       </ul>
       <div class="TagInput mt-1">
-        <%= form_with model: @game, url: tags_path, method: :post do |f| %>
+        <%= form_with model: @game, url: tags_path, method: :post, local: true do |f| %>
           <%= f.hidden_field :id, value: @game.id %>
           <%= f.text_field :tag_name %>
           <%= f.submit "登録" %>
@@ -101,7 +102,121 @@
   </div>
   <div>
     <div>ゲーム概要</div>
-    <div><%= @game.body %></div>
+    <div style="white-space:pre-wrap" class="ml-2"><%= @game.body %></div>
   </div>
 
+<% end %>
+
+<h3>新着レビュー</h3>
+<div><%= link_to "レビュー一覧", game_reviews_path(game_name: @game.name) %> ｜ <%= link_to "レビュー投稿", new_game_review_path(game_name: @game.name) %></div>
+<table class="ml-1 review-table">
+  <% @reviews.each do |review| %>
+  <tr>
+    <td>
+      <div><%= link_to review.user.name, user_path(review.user.name) %></div>
+      <div>プレイ時間：<%= review.hour %></div>
+    </td>
+    <td><div id="story-rate-<%= review.id %>"></div></td>
+      <script>
+        $('#story-rate-<%= review.id %>').empty();
+        $('#story-rate-<%= review.id %>').html("<span>ストーリー</span>");
+        $('#story-rate-<%= review.id %>').raty({
+          size: 36,
+          starOff:  '<%= asset_path('star-off.png') %>',
+          starOn : '<%= asset_path('star-on.png') %>',
+          starHalf: '<%= asset_path('star-half.png') %>',
+          half: true,
+          readOnly: true,
+          score: <%= review.story %>,
+        });
+        $('#story-rate-<%= review.id %> img').wrapAll("<div class=\"flex flex-wrap-nowrap\">")
+      </script>
+    <td><div id="system-rate-<%= review.id %>"></div></td>
+      <script>
+        $('#system-rate-<%= review.id %>').empty();
+        $('#system-rate-<%= review.id %>').html("<span>操作・システム</span>")
+        $('#system-rate-<%= review.id %>').raty({
+          size: 36,
+          starOff:  '<%= asset_path('star-off.png') %>',
+          starOn : '<%= asset_path('star-on.png') %>',
+          starHalf: '<%= asset_path('star-half.png') %>',
+          half: true,
+          readOnly: true,
+          score: <%= review.system %>,
+        });
+        $('#system-rate-<%= review.id %> img').wrapAll("<div class=\"flex flex-wrap-nowrap\">")
+      </script>
+    <td><div id="total-rate-<%= review.id %>"></div></td>
+      <script>
+        $('#total-rate-<%= review.id %>').empty();
+        $('#total-rate-<%= review.id %>').html("<span>総合</span>");
+        $('#total-rate-<%= review.id %>').raty({
+          size: 36,
+          starOff:  '<%= asset_path('star-off.png') %>',
+          starOn : '<%= asset_path('star-on.png') %>',
+          starHalf: '<%= asset_path('star-half.png') %>',
+          half: true,
+          readOnly: true,
+          score: <%= review.total %>,
+        });
+        $('#total-rate-<%= review.id %> img').wrapAll("<div class=\"flex flex-wrap-nowrap\">")
+      </script>
+  </tr>
+  <tr>
+    <% if review.is_spoiler? %>
+      <td colspan="4" class="pt-1 pb-2 pl-1">
+        <input type="button" id="button<%= review.id %>" value="ネタバレを含みます">
+        <span id="hidden<%= review.id %>"></span>
+        <script>
+          $("#button<%= review.id %>").click(function(){
+            $("#hidden<%= review.id %>").replaceWith('<span id="hidden<%= review.id %>" style="white-space:pre-wrap" ><%= review.body.gsub(/\R/, '\n') %></span>');
+            $("#button<%= review.id %>").remove();
+          });
+        </script>
+          <%#= review.body %>
+    </td>
+    <% else %>
+      <td colspan="4" style="white-space:pre-wrap" class="pt-1 pb-2 pl-1"><%= review.body %></td>
+    <% end %>
+    </tr>
+  <% end %>
+</table>
+<h3>コメント</h3><%= link_to "コメント一覧", game_game_coments_path(game_name: @game.name) %>
+<%= form_with( model: [@game, @game_coment], url: game_game_coments_path(game_name: @game.name), local: true) do |f| %>
+  <div class="coment-form">
+    <% if @game_coments.present? %>
+      <ul>
+        <% @game_coments.roots.each do |coment_root| %>
+          <li>
+            <%= f.radio_button :ancestry, coment_root.id %><%= coment_root.body %> --<%= coment_root.name %> <%= coment_root.created_at %>
+            <% if coment_root.present? && coment_root.has_children? %>
+              <ul>
+                <% coment_root.children.each do |coment_child| %>
+                  <li>
+                    <%= f.radio_button :ancestry, coment_child.id %><%= coment_child.body %> --<%= coment_child.name %> <%= coment_child.created_at %>
+                    <% if coment_child.present? && coment_child.has_children? %>
+                      <ul>
+                        <% coment_child.children.each do |coment| %>
+                          <li>
+                            <%= coment.body %> --<%= coment.name %> <%= coment.created_at %>
+                          </li>
+                        <% end %>
+                      </ul>
+                    <% end %>
+                  </li>
+                <% end %>
+              </ul>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
+    <div class="mt-2 mb-5">
+      <% user_name = user_signed_in? ? current_user.name : "" %>
+      <%= f.radio_button :ancestry,"root", checked: true %>
+      <%= f.text_field :name, placeholder: "名前",value: "#{user_name}", class:"coment-name" %>
+      <%= f.text_field :body, placeholder: "コメント", class:"coment-body" %>
+      <%= f.submit "挿入" %>
+    </div>
+  </div>
 <% end %>

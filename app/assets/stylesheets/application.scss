@@ -63,7 +63,8 @@ header{
 }
 //textフォーム
 .text_area{
-  width: 100%;
+  width: calc(100% - 10px);
+  height: 5em;
   padding: 5px;
 }
 //サイドバー
@@ -71,6 +72,9 @@ header{
   td{
     border-top:1px solid #AAA;
   }
+}
+.review-table{
+  width: calc(100% - 10px);
 }
 
 .balloon-base{
@@ -113,4 +117,60 @@ header{
 }
 .a-underline{
   text-decoration: none;
+}
+.star{
+  img{
+    margin-bottom: -5px;
+  }
+}
+
+.coment{
+  &-form{
+    li{
+      list-style: inside;
+      input[type="radio"]{
+        margin-left: -5px;
+      }
+      li{
+        list-style: circle;
+        ul{
+          padding-left: 25px;
+        }
+        li{
+          list-style-type: square;
+        }
+      }
+    }
+    ul{
+      margin: 4px 0px;
+    }
+  }
+  &-name{
+    width: 100px;
+  }
+  &-body{
+    width: 50%;
+  }
+
+  &-index{
+    li{
+      list-style: inside;
+     ul{
+        padding-left: 40px;
+      }
+      li{
+        list-style: circle;
+        ul{
+          padding-left: 25px;
+        }
+        li{
+          list-style-type: square;
+        }
+      }
+    }
+    ul{
+      margin: 4px 0px;
+      padding-left: 10px;
+    }
+  }
 }

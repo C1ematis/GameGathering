@@ -1,6 +1,6 @@
 class TagsController < ApplicationController
 
-  def show
+  def index
     @word = params[:word]
     @tags = Tag.all
   end
@@ -9,6 +9,7 @@ class TagsController < ApplicationController
     @game = Game.find(params[:game][:id])
     tag_list = params[:game][:tag_name].split
     current_tag_list = @game.tags.pluck(:name) unless @game.tags.nil?
+    $unique = (current_tag_list & tag_list).present? ? "重複するタグがありました" : ""
     new = tag_list - current_tag_list
     new.each do |name|
       game_tag = Tag.find_or_create_by(name: name)
@@ -24,9 +25,5 @@ class TagsController < ApplicationController
   end
 
 private
-
-  def tag_params
-    params.require(:tag).permit(:name)
-  end
 
 end

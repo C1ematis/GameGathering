@@ -1,9 +1,9 @@
 <!--<h1>サイドバー</h1>-->
 <% s_genres = Genre.eager_load(:games).all %>
-<% s_machines = Machine.eager_load(:games) %>
+<% s_machines = Machine.joins(:machine_relations).group(:machine_id).order('count(game_id) desc').limit(10) %>
 <% s_tags = Tag.joins(:tag_relations).group(:tag_id).order('count(game_id) desc').limit(10) %>
 
-<tableいいね
+<table class="side-table">
   <tr>
     <th>
       <h3>ゲームを探す</h3>

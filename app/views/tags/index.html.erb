@@ -13,9 +13,11 @@
 <table class="w-100 table-border">
   <% @tags.each_slice(5) do |tags| %>
     <tr valign="top">
-       <% tags.each do |tag| %>
+      <% tags.each do |tag| %>
+      <% count = tag.games.count %>
+      <% break if count == 0 %>
         <td width="20%">
-          <%= link_to "#{tag.name}(#{tag.games.count})", games_path %>
+          <%= link_to "#{tag.name}(#{count})", games_path %>
         </td>
       <% end %>
     </tr>

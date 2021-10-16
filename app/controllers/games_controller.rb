@@ -1,7 +1,7 @@
 class GamesController < ApplicationController
 
   # ログイン済ユーザーのみにアクセスを許可する
-  before_action :authenticate_user!, except:[:index,:show]
+  #before_action :authenticate_user!, except:[:index,:show]
 
   def new
     @game = Game.new
@@ -28,13 +28,15 @@ class GamesController < ApplicationController
     @game = Game.find_by(name: params[:name])
     @tag_list = @game.tags.pluck(:name).join(",")
     @tag = Tag.new
+    @reviews = @game.reviews.limit(5)
+    @game_coments = @game.game_coments
+    @game_coment = GameComent.new
+    @coment = Coment.new
   end
 
   def update
     @game = Game.find_by(name: params[:name])
-    tag_list = params[:game][:tag_name].split(",")
     if @game.update(game_params)
-      @game.tag_save(tag_list)
       redirect_to game_path(@game.name)
     else
       render show
