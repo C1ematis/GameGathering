@@ -10,15 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_16_111154) do
+ActiveRecord::Schema.define(version: 2021_10_17_040141) do
 
   create_table "coments", force: :cascade do |t|
     t.string "name"
     t.text "body"
-    t.string "path"
+    t.string "ancestry"
     t.string "page"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["ancestry"], name: "index_coments_on_ancestry"
   end
 
   create_table "game_coments", force: :cascade do |t|
