@@ -4,6 +4,14 @@
   <div>
     <%= f.search_field :word, value: @word, placeholder: "ゲームタイトル" %>
   </div>
+  <div>
+    <%= f.label "ジャンル：" %>
+    <%= f.collection_check_boxes :genre_ids, Genre.all, :id, :name, include_hidden: false %>
+  </div>
+  <div>
+    <%= f.label "機種：" %>
+    <%= f.collection_check_boxes :machine_ids, Machine.all, :id, :name, include_hidden: false %>
+  </div>
   <%= f.submit "検索",name: nil %>
 <% end %>
 <%= @word %>

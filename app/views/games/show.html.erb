@@ -95,7 +95,7 @@
         <%= form_with model: @game, url: tags_path, method: :post, local: true do |f| %>
           <%= f.hidden_field :id, value: @game.id %>
           <%= f.text_field :tag_name %>
-          <%= f.submit "登録" %>
+          <%= f.submit "登録" %><span class=tagkome style="margin-left: 40px">※単語を空白で区切ると一度に複数のタグを登録できます。</span>
         <% end %>
       </div>
     </div>
@@ -173,8 +173,7 @@
             $("#button<%= review.id %>").remove();
           });
         </script>
-          <%#= review.body %>
-    </td>
+      </td>
     <% else %>
       <td colspan="4" style="white-space:pre-wrap" class="pt-1 pb-2 pl-1"><%= review.body %></td>
     <% end %>
@@ -184,9 +183,9 @@
 <h3>コメント</h3><%= link_to "コメント一覧", game_game_coments_path(game_name: @game.name) %>
 <%= form_with( model: [@game, @game_coment], url: game_game_coments_path(game_name: @game.name), local: true) do |f| %>
   <div class="coment-form">
-    <% if @game_coments.present? %>
+    <% if @game.game_coments.present? %>
       <ul>
-        <% @game_coments.roots.each do |coment_root| %>
+        <% @game.game_coments.roots.each do |coment_root| %>
           <li>
             <%= f.radio_button :ancestry, coment_root.id %><%= coment_root.body %> --<%= coment_root.name %> <%= coment_root.created_at %>
             <% if coment_root.present? && coment_root.has_children? %>

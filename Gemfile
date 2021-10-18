@@ -64,7 +64,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'devise'
 gem 'devise-i18n'
 gem 'ancestry'
-gem 'cancancan'
 gem 'pry-byebug'
 gem 'jquery-ui-rails'
 gem 'pundit'

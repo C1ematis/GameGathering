@@ -10,7 +10,7 @@ class GamesController < ApplicationController
 
   def create
     @game = Game.new(game_params)
-    tag_list = params[:game][:tag_name].split(",")
+    tag_list = params[:game][:tag_name].split
     if @game.save
       @game.tag_save(tag_list)
       redirect_to game_path(@game.name)
@@ -26,10 +26,8 @@ class GamesController < ApplicationController
 
   def show
     @game = Game.find_by(name: params[:name])
-    @tag_list = @game.tags.pluck(:name).join(",")
     @tag = Tag.new
     @reviews = @game.reviews.limit(5)
-    @game_coments = @game.game_coments
     @game_coment = GameComent.new
     @coment = Coment.new
   end

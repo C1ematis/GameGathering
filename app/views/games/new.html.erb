@@ -16,7 +16,7 @@
     <%= f.collection_check_boxes :machine_ids, Machine.all, :id, :name, include_hidden: false %>
   </div>
   <div>
-    <%= f.text_field :tag_name, placeholder:"タグ[ , で区切ってください]" %>
+    <%= f.text_field :tag_name, placeholder:"タグ" %><span class=tagkome>※単語を空白で区切ると一度に複数のタグを登録できます。</span>
   </div>
   <div>
     <%= f.text_field :cero, placeholder: "対象年齢" %>
