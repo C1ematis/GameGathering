@@ -35,7 +35,7 @@
     <tr>
       <td class="table-mini">
         ゲームタイトル
-        <%= link_to "https://www.google.co.jp/search?q=#{@game.name}", target: :_blank, rel: "noopener noreferrer", class:"balloon-base" do %><i class="fas fa-search"></i><span class="balloon">ゲームタイトルで検索</span><% end %>
+        <%= link_to "https://www.google.co.jp/search?q=#{@game.name}", target: :_blank, rel: "noopener noreferrer", class:"balloon-base" do %><i class="fas fa-search"></i><span class="balloon">ゲームタイトルでGoogle検索</span><% end %>
       </td>
       <td colspan="3"><%= @game.name %>(<%= @game.kana %>)</td>
     </tr>

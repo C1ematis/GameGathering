@@ -2,19 +2,24 @@
 <%= link_to "ゲーム登録", new_game_path %>
 <%= form_with url: games_path, method: :get, skip_enforcing_utf8: true, local: true do |f| %>
   <div>
-    <%= f.search_field :word, value: @word, placeholder: "ゲームタイトル" %>
+    <%= f.search_field :word, value: @word, placeholder: "ゲームの検索" %>
+  </div>
+  <div>
+    <%= f.search_field :notword, value: @notword, placeholder: "除外キーワード" %>
+  </div>
+  <div>
+    <%= f.search_field :tags, value: @tags, placeholder: "タグで検索" %>
   </div>
   <div>
     <%= f.label "ジャンル：" %>
-    <%= f.collection_check_boxes :genre_ids, Genre.all, :id, :name, include_hidden: false %>
+    <%= f.collection_check_boxes :genre_ids, Genre.all, :id, :name, include_hidden: false, checked: @genres %>
   </div>
   <div>
     <%= f.label "機種：" %>
-    <%= f.collection_check_boxes :machine_ids, Machine.all, :id, :name, include_hidden: false %>
+    <%= f.collection_check_boxes :machine_ids, Machine.all, :id, :name, include_hidden: false, checked: @machines %>
   </div>
-  <%= f.submit "検索",name: nil %>
+  <%= f.submit "検索" %>
 <% end %>
-<%= @word %>
 <% @games.each do |game| %>
 <table class="w-100 table table-border mt-2">
   <tr>
