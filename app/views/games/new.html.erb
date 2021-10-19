@@ -1,7 +1,8 @@
 <h1>ゲーム投稿</h1>
+<input placeholder="ゲームタイトル" class="autocomplete-title" type="search" name="word" >
 <%= form_with model: @game do |f| %>
   <div>
-    <%= f.text_field :name, placeholder: "ゲームタイトル" %>
+    <%= f.text_field :name, placeholder: "ゲームタイトル"%>
     <%= f.text_field :kana, placeholder: "ゲームタイトル(かな)" %>
   </div>
   <div>
