@@ -2,8 +2,8 @@ class TagsController < ApplicationController
 
   def index
     @tags = Tag.all
-    if params[:word].present?
-      @word = params[:word]
+    if params[:tags].present?
+      @word = params[:tags]
       @word.split(/[[:blank:]]+/).select(&:present?).each do |word|
         @tags = @tags.where("name like ?", "%#{word}%")
       end
@@ -27,6 +27,11 @@ class TagsController < ApplicationController
     @game = Game.find_by(name: params[:game_name])
     @game.tags.delete Tag.find(params[:id])
     redirect_to game_path(@game.name)
+  end
+
+  def autocomplete_tags
+    tagname = Tag.tag_autocomplete(params[:tags]).pluck(:name).reject(&:blank?)
+    render json: tagname
   end
 
 private

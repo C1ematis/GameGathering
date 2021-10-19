@@ -3,7 +3,7 @@
   <%= form_with url: games_path, method: :get, skip_enforcing_utf8: true, local: true do |f| %>
     <div>
       <label>キーワード検索</label>
-      <%= f.search_field :word, value: @word %>
+      <%= f.search_field :word, value: @word, class:"autocomplete-title" %>
     </div>
     <div>
       <label>除外キーワード</label>
@@ -13,7 +13,7 @@
         <p>条件で絞り込む</p>
       <div>
         <label>タグ名</label>
-        <%= f.search_field :tags, value: @tags %>
+        <%= f.search_field :tags, value: @tags, class:"autocomplete-tag" %>
       </div>
       <div>
         <label>ジャンル</label><br>

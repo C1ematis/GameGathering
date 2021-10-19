@@ -82,6 +82,10 @@ class GamesController < ApplicationController
     return items
   end
 
+  def autocomplete_games
+    gamestitle = Game.title_autocomplete(params[:word]).pluck(:name).reject(&:blank?)
+    render json: gamestitle
+  end
 
 private
 

@@ -10,7 +10,7 @@
       <div class="text-align-right mb-2">
         <div class="search-form mb-1">
           <%= form_with url: games_path, method: :get, skip_enforcing_utf8: true, local: true do |f| %>
-            <%= f.search_field :word, placeholder: "ゲームタイトル" %>
+            <%= f.search_field :word, placeholder: "ゲームタイトル", class:"autocomplete-title" %>
             <%= f.submit "検索",name: "title" %>
           <% end %>
         </div>

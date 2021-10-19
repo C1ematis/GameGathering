@@ -17,6 +17,8 @@ Rails.application.routes.draw do
   scope 'info' do
     resources :coments, only:[:index,:create]
   end
+  get '/autocomplete_games/:word' => 'games#autocomplete_games'
+  get '/autocomplete_tags/:tags' => 'tags#autocomplete_tags'
 
   resources :games, except:[:edit, :destroy], param: :name do
     resources :game_coments, only:[:index,:create]

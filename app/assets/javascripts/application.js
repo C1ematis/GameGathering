@@ -13,8 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui
-//= require tag-it
-//
+//= require jquery-ui/widgets/autocomplete
 //= require rails-ujs
 //= require activestorage
 //= require turbolinks

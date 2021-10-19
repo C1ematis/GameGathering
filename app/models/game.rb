@@ -29,5 +29,8 @@ class Game < ApplicationRecord
     end
   end
 
+  scope :title_autocomplete, ->(word) {
+    where("name collate utf8_unicode_ci LIKE :q OR kana collate utf8_unicode_ci LIKE :q",q: "%#{word}%").order(:name, :kana)
+  }
 
 end
