@@ -1,8 +1,13 @@
 class TagsController < ApplicationController
 
   def index
-    @word = params[:word]
     @tags = Tag.all
+    if params[:word].present?
+      @word = params[:word]
+      @word.split(/[[:blank:]]+/).select(&:present?).each do |word|
+        @tags = @tags.where("name like ?", "%#{word}%")
+      end
+    end
   end
 
   def create

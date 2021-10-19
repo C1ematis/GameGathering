@@ -1,25 +1,40 @@
 <h1>ゲーム検索</h1>
-<%= link_to "ゲーム登録", new_game_path %>
-<%= form_with url: games_path, method: :get, skip_enforcing_utf8: true, local: true do |f| %>
-  <div>
-    <%= f.search_field :word, value: @word, placeholder: "ゲームの検索" %>
-  </div>
-  <div>
-    <%= f.search_field :notword, value: @notword, placeholder: "除外キーワード" %>
-  </div>
-  <div>
-    <%= f.search_field :tags, value: @tags, placeholder: "タグで検索" %>
-  </div>
-  <div>
-    <%= f.label "ジャンル：" %>
-    <%= f.collection_check_boxes :genre_ids, Genre.all, :id, :name, include_hidden: false, checked: @genres %>
-  </div>
-  <div>
-    <%= f.label "機種：" %>
-    <%= f.collection_check_boxes :machine_ids, Machine.all, :id, :name, include_hidden: false, checked: @machines %>
-  </div>
-  <%= f.submit "検索" %>
-<% end %>
+<div class="search-area mb-2">
+  <%= form_with url: games_path, method: :get, skip_enforcing_utf8: true, local: true do |f| %>
+    <div>
+      <label>キーワード検索</label>
+      <%= f.search_field :word, value: @word %>
+    </div>
+    <div>
+      <label>除外キーワード</label>
+      <%= f.search_field :notword, value: @notword %>
+    </div>
+    <div class="CloseUp">
+        <p>条件で絞り込む</p>
+      <div>
+        <label>タグ名</label>
+        <%= f.search_field :tags, value: @tags %>
+      </div>
+      <div>
+        <label>ジャンル</label><br>
+        <%= f.collection_check_boxes :genre_ids, Genre.all, :id, :name, include_hidden: false, checked: @genres %>
+      </div>
+      <div>
+        <label>機種</label><br>
+        <%= f.collection_check_boxes :machine_ids, Machine.all, :id, :name, include_hidden: false, checked: @machines %>
+      </div>
+    </div>
+    <%= f.submit "検索" %>
+  <% end %>
+</div>
+<%= link_to "ゲームの登録", new_game_path %>
+<div>
+  <% if params[:title].present? %>
+    <span><%= @word %>を含むゲームのタイトルが<%= @games.size %>件見つかりました</span>
+  <% elsif params[:commit].present? %>
+    <span>検索条件を満たしたゲームが<%= @games.size %>件見つかりました</span>
+  <% end %>
+</div>
 <% @games.each do |game| %>
 <table class="w-100 table table-border mt-2">
   <tr>

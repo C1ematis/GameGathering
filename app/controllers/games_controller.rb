@@ -27,6 +27,9 @@ class GamesController < ApplicationController
       @genres = params[:genre_ids]
       @machines = params[:machine_ids]
       @games = search(@word,@notword,@tags,@genres,@machines)
+    elsif params[:title].present?
+      @word = params[:word]
+      @games = Game.eager_load(:genres, :machines, :tags).where("games.name like ? ", "%#{@word}%")
     else
       @games = Game.eager_load(:genres, :machines, :tags).all
     end
@@ -50,23 +53,30 @@ class GamesController < ApplicationController
   end
 
   def search(word,notword,tag,genres,machines)
-    words = word.split(/[[:blank:]]+/).select(&:present?)
-    notwords = notword.split(/[[:blank:]]+/).select(&:present?)
     items = Game.includes(:genres, :machines, :tags).references(:genres, :machines, :tags)
 
     items = items.where(id: MachineRelation.select(:game_id).where(machine_id: machines).group(:game_id).having("COUNT(DISTINCT machine_relations.machine_id) = ?", machines.size)) if machines.present?
     items = items.where(id: GenreRelation.select(:game_id).where(genre_id: genres).group(:game_id).having("COUNT(DISTINCT genre_relations.genre_id) = ?", genres.size)) if genres.present?
+
     if tag.present?
       tags = tag.split(/[[:blank:]]+/)
       tags_id = Tag.where(name: tags).ids
       items = items.where(id: TagRelation.select(:game_id).where(tag_id: tags_id).group(:game_id).having("COUNT(DISTINCT tag_relations.tag_id) = ?", tags_id.size))
     end
 
-    words.each do |word|
-      items = items.where("games.name like :q OR kana like :q OR games.body like :q", q: "%#{word}%")
+    if word.present?
+      words = word.split(/[[:blank:]]+/).select(&:present?)
+      words.each do |word|
+        tags_id = Tag.where("name like ?", "%#{word}%").ids
+        items = items.where("games.name like :q OR kana like :q OR games.body like :q", q: "%#{word}%").or(items.where(id: TagRelation.select(:game_id).where(tag_id: tags_id).group(:game_id)))
+      end
     end
-    notwords.each do |word|
-      items = items.where.not("games.name like :q OR kana like :q OR games.body like :q", q: "%#{word}%")
+    if notword.present?
+      notwords = notword.split(/[[:blank:]]+/).select(&:present?)
+      notwords.each do |word|
+        tags_id = Tag.where("name like ?", "%#{word}%").ids
+        items = items.where.not("games.name like :q OR kana like :q OR games.body like :q", q: "%#{word}%").where.not(id: TagRelation.select(:game_id).where(tag_id: tags_id).group(:game_id))
+      end
     end
 
     return items

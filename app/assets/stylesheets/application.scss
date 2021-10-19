@@ -14,8 +14,6 @@
  *= require_self
  */
 @import "font-awesome";
-@import "jquery.tagit";       // 記述の順番に注意
-@import "tagit.ui-zendesk";   // こっちを後に書かないと、タグ削除（ x ）が表示されない
 
 body{
   margin: 10px;
@@ -43,22 +41,37 @@ header{
   background-color: #FFF;
 }
 //検索バー
-.search-form{
-  form{
-    position: relative;
-  }
-  input[type="search"]{
-    height: 1.96em;
-    margin-right: 43px;
-    width: 185px;
-    &:focus{
+.search{
+  &-form{
+    form{
+      position: relative;
+    }
+    input[type="search"]{
+      height: 1.96em;
+      margin-right: 43px;
+      width: 185px;
+      &:focus{
+        outline: 0;
+      }
+    }
+    input[type="submit"]{
+      position: absolute;
+      left: 182px;
       outline: 0;
     }
   }
-  input[type="submit"]{
-    position: absolute;
-    left: 182px;
-    outline: 0;
+  &-area{
+    background-color: #f5f5f5;
+    border: 1px solid #AAA;
+    padding: 10px;
+
+    input[type="search"]{
+      height: 1.6em;
+      width: calc(100% - 10px);
+    }
+    div:not(.CloseUp){
+      margin-bottom: 5px;
+    }
   }
 }
 //textフォーム
@@ -108,13 +121,6 @@ header{
   }
 }
 
-.FontAwesome{
-  font-family: "Font Awesome 5 Free";
-  font-weight: 900;
-}
-.font-red{
-  color: red;
-}
 .a-underline{
   text-decoration: none;
 }

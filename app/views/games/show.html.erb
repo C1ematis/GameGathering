@@ -185,7 +185,7 @@
   <div class="coment-form">
     <% if @game.game_coments.present? %>
       <ul>
-        <% @game.game_coments.roots.each do |coment_root| %>
+        <% @game.game_coments.roots.last(10).each do |coment_root| %>
           <li>
             <%= f.radio_button :ancestry, coment_root.id %><%= coment_root.body %> --<%= coment_root.name %> <%= coment_root.created_at %>
             <% if coment_root.present? && coment_root.has_children? %>
