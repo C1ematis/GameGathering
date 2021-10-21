@@ -33,4 +33,8 @@ class Game < ApplicationRecord
     where("name collate utf8_unicode_ci LIKE :q OR kana collate utf8_unicode_ci LIKE :q",q: "%#{word}%").order(:name, :kana)
   }
 
+  def favorited_by?(user)
+    game_favorites.where(user_id: user.id).exists?
+  end
+
 end

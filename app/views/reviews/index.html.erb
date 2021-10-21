@@ -1,5 +1,19 @@
 <h1><%= @game.name %>のレビュー一覧</h1>
 <div><%= link_to "レビュー投稿", new_game_review_path(game_name: @game.name) %></div>
+<div class="select-star search-area">
+  <span>レビューを絞りむ</span>
+  <%= form_with ur: game_reviews_path, method: :get, skip_enforcing_utf8: true, local: true do |f| %>
+  <%= f.radio_button :way, "story" %>
+  <%= f.label :way_story, "ストーリー" %>
+  <%= f.radio_button :way, "system" %>
+  <%= f.label :way_system, "操作・システム" %>
+  <%= f.radio_button :way, "total" %>
+  <%= f.label :way_total, "総合" %>
+  <label class="ml-2">評価</label>
+    <%= f.select :star, {'★☆☆☆☆': 1, '★★☆☆☆': 2, '★★★☆☆': 3, '★★★★☆': 4, '★★★★★': 5 },include_blank: '-----' %>
+    <%= f.submit "絞り込む" %>
+  <% end %>
+</div>
 <table class="ml-1 review-table">
   <% @reviews.each do |review| %>
   <tr>

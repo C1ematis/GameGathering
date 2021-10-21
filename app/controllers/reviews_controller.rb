@@ -15,7 +15,11 @@ class ReviewsController < ApplicationController
 
   def index
     @game = Game.find_by(name: params[:game_name])
-    @reviews = @game.reviews
+    if params[:commit].present?
+      @reviews = @game.reviews.search(params[:way],params[:star])
+    else
+      @reviews = @game.reviews
+    end
   end
 
 private

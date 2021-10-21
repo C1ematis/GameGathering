@@ -1,6 +1,6 @@
 <h1><%= @game.name %>のコメント一覧</h1>
 <div class="coment-index">
-  <% if @game.game_coments.present? %>
+  <% if @game.game_coments.any? %>
     <ul>
       <% @game.game_coments.roots.each do |coment_root| %>
         <li>

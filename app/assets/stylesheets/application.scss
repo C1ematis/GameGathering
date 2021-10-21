@@ -130,6 +130,11 @@ header{
     margin-bottom: -5px;
   }
 }
+.select-star{
+  select{
+    font-size: 1.1em;
+  }
+}
 
 .coment{
   &-form{
@@ -179,5 +184,28 @@ header{
       margin: 4px 0px;
       padding-left: 10px;
     }
+  }
+}
+
+.favo {
+  display       : inline-block;
+  border-radius : 5%;          /* 角丸       */
+  text-align    : center;      /* 文字位置   */
+  cursor        : pointer;     /* カーソル   */
+  padding       : 2px 3px;   /* 余白       */
+  line-height   : 1em;         /* 1行の高さ  */
+  transition    : .3s;         /* なめらか変化 */
+  color         : #357;
+  margin-left   : -5px;
+  &:before{
+    font-family   : "Font Awesome 5 Free";
+    content       : "\f004";
+  }
+  &-c{
+    font-weight   : 400;
+    padding       : 2px 11px;
+  }
+  &-d{
+    font-weight   : 900;
   }
 }

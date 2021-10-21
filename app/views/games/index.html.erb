@@ -36,11 +36,11 @@
   <% end %>
 </div>
 <% @games.each do |game| %>
-<table class="w-100 table table-border mt-2">
+<table class="w-100 table  table-between-border">
   <tr>
-    <td width="33%">
-      <%= link_to "#{game.name}", game_path(game.name) %>
-    </td>
+    <th width="33%" class="text-align-left">
+      <%= link_to game.name, game_path(game.name), class:"a-underline" %>
+    </th>
     <td style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden; max-width: 0" colspan="2">
       <%= game.body %>
     </td>

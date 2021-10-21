@@ -35,9 +35,10 @@
     <tr>
       <td class="table-mini">
         ゲームタイトル
-        <%= link_to "https://www.google.co.jp/search?q=#{@game.name}", target: :_blank, rel: "noopener noreferrer", class:"balloon-base" do %><i class="fas fa-search"></i><span class="balloon">ゲームタイトルでGoogle検索</span><% end %>
+        <%= link_to "https://www.google.co.jp/search?q=#{@game.name}", target: :_blank, rel: "noopener noreferrer", class:"balloon-base" do %><i class="fas fa-search font-blue"></i><span class="balloon">ゲームタイトルでGoogle検索</span><% end %>
+        <div id="favorite<%= @game.id %>"><%= render 'game_favorites/favo', game: @game %></div>
       </td>
-      <td colspan="3"><%= @game.name %>(<%= @game.kana %>)</td>
+      <td colspan="3"><%= @game.name %><br>(<%= @game.kana %>)</td>
     </tr>
     <tr>
       <td>ジャンル</td>
@@ -94,7 +95,7 @@
       <div class="TagInput mt-1">
         <%= form_with model: @game, url: tags_path, method: :post, local: true do |f| %>
           <%= f.hidden_field :id, value: @game.id %>
-          <%= f.text_field :tag_name %>
+          <%= f.text_field :tag_name, class:"autocomplete-tag" %>
           <%= f.submit "登録" %><span class=tagkome style="margin-left: 40px">※単語を空白で区切ると一度に複数のタグを登録できます。</span>
         <% end %>
       </div>
@@ -109,8 +110,8 @@
 
 <h3>新着レビュー</h3>
 <div><%= link_to "レビュー一覧", game_reviews_path(game_name: @game.name) %> ｜ <%= link_to "レビュー投稿", new_game_review_path(game_name: @game.name) %></div>
-<table class="ml-1 review-table">
   <% @reviews.each do |review| %>
+<table class="ml-1 review-table table-between-border">
   <tr>
     <td>
       <div><%= link_to review.user.name, user_path(review.user.name) %></div>
@@ -164,7 +165,7 @@
   </tr>
   <tr>
     <% if review.is_spoiler? %>
-      <td colspan="4" class="pt-1 pb-2 pl-1">
+      <td colspan="4" class="pt-1 pb-1 pl-1">
         <input type="button" id="button<%= review.id %>" value="ネタバレを含みます">
         <span id="hidden<%= review.id %>"></span>
         <script>
@@ -175,15 +176,15 @@
         </script>
       </td>
     <% else %>
-      <td colspan="4" style="white-space:pre-wrap" class="pt-1 pb-2 pl-1"><%= review.body %></td>
+      <td colspan="4" style="white-space:pre-wrap" class="pt-1 pb-1 pl-1"><%= review.body %></td>
     <% end %>
     </tr>
-  <% end %>
 </table>
+  <% end %>
 <h3>コメント</h3><%= link_to "コメント一覧", game_game_coments_path(game_name: @game.name) %>
 <%= form_with( model: [@game, @game_coment], url: game_game_coments_path(game_name: @game.name), local: true) do |f| %>
   <div class="coment-form">
-    <% if @game.game_coments.present? %>
+    <% if @game.game_coments.any? %>
       <ul>
         <% @game.game_coments.roots.last(10).each do |coment_root| %>
           <li>
@@ -214,7 +215,7 @@
       <% user_name = user_signed_in? ? current_user.name : "" %>
       <%= f.radio_button :ancestry,"root", checked: true %>
       <%= f.text_field :name, placeholder: "名前",value: "#{user_name}", class:"coment-name" %>
-      <%= f.text_field :body, placeholder: "コメント", class:"coment-body" %>
+      <%= f.text_field :body, placeholder: "コメント", class:"coment-body",autocomplete:"off" %>
       <%= f.submit "挿入" %>
     </div>
   </div>

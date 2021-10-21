@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  enum role:{"マスター": 5, "管理者": 3, "編集者": 2, "一般": 1}
+  enum role:{"マスター": 5, "管理者": 3, "編集者": 2, "一般会員": 1}
 
   def to_param
     name

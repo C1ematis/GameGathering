@@ -6,12 +6,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
   before_action :authenticate_user!, except: [:show]
 
   def show
-    @user = User.find_by(name: params[:name])
+    @user = User.eager_load(:reviews).find_by(name: params[:name])
+    @games = Game.where(id: GameFavorite.select(:game_id).where(user_id: @user.id)).eager_load(:genres, :machines)
   end
 
   def my
     $edit_flag = ""
-    @user = current_user
+    @user = User.eager_load(:reviews).find(current_user.id)
+    @games = Game.where(id: GameFavorite.select(:game_id).where(user_id: @user.id)).eager_load(:genres, :machines)
   end
 
   # GET /resource/sign_up

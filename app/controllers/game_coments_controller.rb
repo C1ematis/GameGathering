@@ -1,7 +1,7 @@
 class GameComentsController < ApplicationController
 
   def index
-    @game = Game.eager_load(:game_coments).find_by(name: params[:game_name])
+    @game = Game.find_by(name: params[:game_name])
   end
 
   def create

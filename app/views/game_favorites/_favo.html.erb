@@ -1,0 +1,11 @@
+<% if user_signed_in? %>
+  <% if game.favorited_by?(current_user) %>
+    <%= link_to game_game_favorites_path(game), method: :delete, remote: true, class: "favo favo-d" do %>
+      <span style="font-weight: 400;">ブックマーク中</span>
+    <% end %>
+    <% else %>
+      <%= link_to game_game_favorites_path(game),method: :post, remote: true, class: "favo favo-c" do %>
+      <span style="font-weight: 400;">ブックマーク</span>
+    <% end %>
+  <% end %>
+<% end %>
