@@ -7,12 +7,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def show
     @user = User.eager_load(:reviews).find_by(name: params[:name])
+    @reviews = @user.reviews.page(params[:page]).per(15)
     @games = Game.where(id: GameFavorite.select(:game_id).where(user_id: @user.id)).eager_load(:genres, :machines)
   end
 
   def my
     $edit_flag = ""
     @user = User.eager_load(:reviews).find(current_user.id)
+    @reviews = @user.reviews.page(params[:page]).per(15)
     @games = Game.where(id: GameFavorite.select(:game_id).where(user_id: @user.id)).eager_load(:genres, :machines).page(params[:page]).per(15)
   end
 

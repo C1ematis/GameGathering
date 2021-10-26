@@ -44,7 +44,7 @@ class GamesController < ApplicationController
   def show
     @game = Game.preload(:genres, :machines, :tags, :game_favorites, :reviews, :game_coments).find_by(name: params[:name])
     @tag = Tag.new
-    @reviews = @game.reviews.limit(5)
+    @reviews = @game.reviews.last(5)
     @game_coment = GameComent.new
     @coment = Coment.new
   end
