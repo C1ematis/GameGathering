@@ -30,7 +30,7 @@ class Game < ApplicationRecord
   end
 
   scope :title_autocomplete, ->(word) {
-    where("name collate utf8_unicode_ci LIKE :q OR kana collate utf8_unicode_ci LIKE :q",q: "%#{word}%").order(:name, :kana)
+    where("name LIKE :q OR kana LIKE :q",q: "%#{word}%").order(:name, :kana)
   }
 
   def favorited_by?(user)

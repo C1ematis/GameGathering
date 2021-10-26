@@ -4,7 +4,7 @@ class Tag < ApplicationRecord
   has_many :games, through: :tag_relations
 
   scope :tag_autocomplete, ->(word) {
-    where("name collate utf8_unicode_ci LIKE :q",q: "%#{word}%").order(:name)
+    where("name LIKE :q",q: "%#{word}%").order(:name)
   }
 
 end
