@@ -29,9 +29,15 @@ class GamesController < ApplicationController
       @games = search(@word,@notword,@tags,@genres,@machines).page(params[:page]).per(15)
     elsif params[:title].present?
       @word = params[:word]
-      @games = Game.eager_load(:genres, :machines, :tags).where("games.name like ? ", "%#{@word}%").page(params[:page]).per(15)
+      @games = Game.eager_load(:genres, :machines, :tags)
+      if @word.present?
+        words = @word.split(/[[:blank:]]+/).select(&:present?)
+        words.each do |word|
+          @games = @games.where("games.name like :q OR kana like :q ", q: "%#{word}%").page(params[:page]).per(15)
+        end
+      end
     else
-      @games = Game.eager_load(:genres, :machines, :tags).page(params[:page]).per(15)
+        @games = Game.eager_load(:genres, :machines, :tags).page(params[:page]).per(15)
     end
   end
 
