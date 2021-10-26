@@ -13,7 +13,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def my
     $edit_flag = ""
     @user = User.eager_load(:reviews).find(current_user.id)
-    @games = Game.where(id: GameFavorite.select(:game_id).where(user_id: @user.id)).eager_load(:genres, :machines)
+    @games = Game.where(id: GameFavorite.select(:game_id).where(user_id: @user.id)).eager_load(:genres, :machines).page(params[:page]).per(15)
   end
 
   # GET /resource/sign_up

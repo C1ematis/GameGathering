@@ -6,13 +6,12 @@ class ComentsController < ApplicationController
   end
 
   def create
-    if params[:ancestry] == "root"
-      game_coment = Coment.new(coment_params)
-      game_coment.ancestry = nil
+    if params[:coment][:ancestry] == "root"
+      coment = Coment.new(coment_params)
+      coment.ancestry = nil
     else
-      coment = Coment.find(params[:ancestry]).children.new(oment_params)
+      coment = Coment.find(params[:coment][:ancestry]).children.new(coment_params)
     end
-    coment.page = request.fullpath
     coment.save
     session[:url] = request.referer
     redirect_to session[:url]
@@ -21,7 +20,7 @@ class ComentsController < ApplicationController
 private
 
   def coment_params
-    params.require(:game_coment).permit(:name, :body)
+    params.require(:coment).permit(:name, :body, :page)
   end
 
 end

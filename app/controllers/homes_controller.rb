@@ -5,7 +5,8 @@ class HomesController < ApplicationController
   end
 
   def info
-
+    @coment = Coment.new
+    @coments = Coment.where(page: "/info")
   end
 
   def search

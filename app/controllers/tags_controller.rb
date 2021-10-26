@@ -1,12 +1,14 @@
 class TagsController < ApplicationController
 
   def index
-    @tags = Tag.all
     if params[:tags].present?
+      @tags = Tag.all
       @word = params[:tags]
       @word.split(/[[:blank:]]+/).select(&:present?).each do |word|
-        @tags = @tags.where("name like ?", "%#{word}%")
+        @tags = @tags.where("name like ?", "%#{word}%").page(params[:page]).per(100)
       end
+    else
+      @tags = Tag.all.page(params[:page]).per(100)
     end
   end
 
@@ -20,13 +22,13 @@ class TagsController < ApplicationController
       game_tag = Tag.find_or_create_by(name: name)
       @game.tags << game_tag
     end
-    redirect_to game_path(@game.name)
+    #redirect_to game_path(@game.name)
   end
 
   def destroy
     @game = Game.find_by(name: params[:game_name])
     @game.tags.delete Tag.find(params[:id])
-    redirect_to game_path(@game.name)
+    #redirect_to game_path(@game.name)
   end
 
   def autocomplete_tags

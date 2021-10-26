@@ -1,5 +1,4 @@
-<h1>infoページ</h1>
-<h3>お問い合わせ</h3>
+<h1>管理者用ページ</h1>
 <%= form_with( model: @coment, url: coments_path, local: true) do |f| %>
   <div class="coment-form">
     <% if @coments.any? %>
@@ -38,14 +37,27 @@
       <%= f.submit "挿入" %>
     </div>
   </div>
-<h3>編集に携わりたい方はこちら</h3>
-    <div class="mt-2 mb-5">
-      <% user_name = user_signed_in? ? current_user.name : "" %>
-      <%= f.radio_button :ancestry,"root", checked: true %>
-      <%= f.text_field :name, placeholder: "名前",value: "#{user_name}", class:"coment-name" %>
-      <%= f.text_field :body, placeholder: "コメント", class:"coment-body",autocomplete:"off" %>
-      <%= f.hidden_field :page, value: "/admins" %>
-      <%= f.submit "挿入" %>
+<% end %>
+<h3>ユーザー管理</h3>
+<%= form_with url: admins_reques_path, method: :get, skip_enforcing_utf8: true, local: true do |f| %>
+  <%= f.search_field :word, placeholder: "ユーザー名" %>
+  <%= f.submit "検索" %>
+<% end %>
+<% if @users.present? %>
+  <% @users.each do |user| %>
+    <div><%= link_to user.name, admins_reques_path(name: user.name) %></div>
+  <% end %>
+<% end %>
+<% if @user.present? %>
+  <%= form_with model: @user, url: admins_path, local: true do |f| %>
+    <div><%= @user.name %></div>
+    <div>
+      <%= f.hidden_field :id, value: @user.id %>
+      <%= f.radio_button :role, User.roles.keys[@user.role_before_type_cast] %>
+      <%= f.label User.roles.keys[@user.role_before_type_cast], for:"user_role_#{User.roles.keys[@user.role_before_type_cast]}" %>
+      <%= f.radio_button :role, @user.role, checked: true %>
+      <%= f.label @user.role, for:"user_role_#{@user.role}" %>
     </div>
-  </div>
+    <%= f.submit "更新",name: "users" %>
+  <% end %>
 <% end %>

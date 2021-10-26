@@ -12,13 +12,14 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   root to: 'homes#top'
-  post '/search' => 'homes#search'
-  get '/info' => 'homes#info'
+  post '/search'  => 'homes#search'
+  get '/info'     => 'homes#info'
+  get '/request'  => 'homes#request'
   scope 'info' do
     resources :coments, only:[:index,:create]
   end
   get '/autocomplete_games/:word' => 'games#autocomplete_games'
-  get '/autocomplete_tags/:tags' => 'tags#autocomplete_tags'
+  get '/autocomplete_tags/:tags'  => 'tags#autocomplete_tags'
 
   resources :games, except:[:edit, :destroy], param: :name do
     resources :game_coments, only:[:index,:create]
@@ -36,7 +37,8 @@ Rails.application.routes.draw do
 
   #resources :users, only:[:show,:edit,:update]
 
-  get '/admin'        => 'admins#top'
-  get '/admin/search' => 'admins#search'
+  get '/admins'        => 'admins#top'
+  get '/admins/search' => 'admins#search'
+  get '/admins/reques'=> 'admins#reques'
   resource :admins, only:[:edit,:update,:destroy]
 end

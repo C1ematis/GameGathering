@@ -1,0 +1,7 @@
+      <ul class="TagList">
+        <% game.tags.each do |g| %>
+          <li class="TagItem">
+            <%= link_to  g.name, games_path, class:"a-underline TagItem-name" %><%= link_to  "\uf00d", tag_path(g.id, game_name: game.name), method: :delete, remote: true, class:"FontAwesome font-red a-underline ml-1" %>
+          </li>
+        <% end %>
+      </ul>

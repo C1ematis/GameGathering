@@ -1,8 +1,12 @@
 <h1>ジャンル詳細ページ</h1>
 <% @genres.each do |genre| %>
-  <div><%= genre.name + "(#{genre.games.count})" %></div>
-  <div><%= genre.body %></div>
-  <div class="text-align-right"><%= link_to "編集", genres_path(id: genre.id) %></div>
+  <div>
+    <strong><%= genre.name %></strong>
+    <%= link_to games_path(commit: "検索",genre_ids: genre.id), class:"balloon-base" do %>
+      <i class="fas fa-search font-blue"></i><span class="balloon">「<%= genre.name %>」でゲームを検索</span>
+    <% end %>
+  </div>  <div class="ml-1 mb-1"><%= genre.body %></div>
+  <div class="text-align-right"><%= link_to "編集", genres_path(id: genre.id) if user_signed_in? && current_user.role_before_type_cast >= 2 %></div>
 <% end %>
 
 <%= form_with model: @genre do |f| %>

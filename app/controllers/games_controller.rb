@@ -1,7 +1,7 @@
 class GamesController < ApplicationController
 
   # ログイン済ユーザーのみにアクセスを許可する
-  #before_action :authenticate_user!, except:[:index,:show]
+  before_action :authenticate_user!, except:[:index,:show]
 
   def new
     @game = Game.new
@@ -26,12 +26,12 @@ class GamesController < ApplicationController
       @tags = params[:tags]
       @genres = params[:genre_ids]
       @machines = params[:machine_ids]
-      @games = search(@word,@notword,@tags,@genres,@machines)
+      @games = search(@word,@notword,@tags,@genres,@machines).page(params[:page]).per(15)
     elsif params[:title].present?
       @word = params[:word]
-      @games = Game.eager_load(:genres, :machines, :tags).where("games.name like ? ", "%#{@word}%")
+      @games = Game.eager_load(:genres, :machines, :tags).where("games.name like ? ", "%#{@word}%").page(params[:page]).per(15)
     else
-      @games = Game.eager_load(:genres, :machines, :tags).all
+      @games = Game.eager_load(:genres, :machines, :tags).page(params[:page]).per(15)
     end
   end
 

@@ -27,7 +27,7 @@
     <%= f.submit "検索" %>
   <% end %>
 </div>
-<%= link_to "ゲームの登録", new_game_path %>
+<%= link_to "ゲームの登録", new_game_path if user_signed_in? && current_user.role_before_type_cast >= 1 %>
 <div>
   <% if params[:title].present? %>
     <span><%= @word %>を含むゲームのタイトルが<%= @games.size %>件見つかりました</span>
@@ -57,4 +57,5 @@
     <% end %></td>
   </tr>
 </table>
+<%= paginate(@games) %>
 <% end %>

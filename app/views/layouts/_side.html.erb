@@ -14,7 +14,10 @@
             <%= f.submit "検索",name: "title" %>
           <% end %>
         </div>
-        <%= link_to "ゲームの登録", new_game_path %> ｜ <%= link_to "詳細検索", games_path %>
+         <% if user_signed_in? && current_user.role_before_type_cast >= 2 %>
+          <%= link_to "ゲームの登録", new_game_path %> ｜
+        <% end %>
+        <%= link_to "詳細検索", games_path %>
       </div>
     </th>
   </tr>
@@ -58,15 +61,18 @@
       <div class="text-align-right" ><%= link_to "一覧", tags_path %></div>
     </td>
   </tr>
-  <tr>
-    <td>
-      <p>管理</p>
-      <div><%= link_to "トップページ", admin_path %></div>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <p>最新の10件</p>
-    </td>
-  </tr>
+  <%  if user_signed_in? && current_user.role_before_type_cast >= 3 %>
+    <tr>
+      <td>
+        <p>管理</p>
+        <div><%= link_to "トップページ", admins_path %></div>
+        <div><%= link_to "管理者用", admins_reques_path if user_signed_in? && current_user.role_before_type_cast >= 3 %></div>
+      </td>
+    </tr>
+  <% end %>
+  <!--<tr>-->
+  <!--  <td>-->
+  <!--    <p>最新の10件</p>-->
+  <!--  </td>-->
+  <!--</tr>-->
 </table>

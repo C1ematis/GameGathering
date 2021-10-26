@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  enum role:{"マスター": 5, "管理者": 3, "編集者": 2, "一般会員": 1}
+  enum role:{ "一般会員": 1, "編集者": 2, "管理者": 3, "マスター": 5}
 
   def to_param
     name
@@ -15,4 +15,9 @@ class User < ApplicationRecord
 
   validates :name, uniqueness: true
   validates :birth, presence: true
+
+  scope :search, ->(word) {
+    where("name LIKE :q",q: "%#{word}%").order(:name)
+  }
+
 end
