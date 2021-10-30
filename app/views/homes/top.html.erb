@@ -20,7 +20,7 @@
 <% @reviews.each do |review| %>
   <table class="ml-1 review-table table-between-border">
     <tr>
-      <td>
+      <td width="40%">
         <div><strong><%= link_to review.game.name, game_path(review.game.name), class:" a-underline" %></strong></div>
         <div>プレイ時間：<%= review.hour %></div>
       </td>
