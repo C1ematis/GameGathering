@@ -118,7 +118,7 @@
 <% @reviews.each do |review| %>
   <table class="ml-1 review-table table-between-border">
     <tr>
-      <td>
+      <td width="40%">
         <div><%= link_to review.user.name, user_path(review.user.name) %></div>
         <div>プレイ時間：<%= review.hour %></div>
       </td>

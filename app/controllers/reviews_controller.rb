@@ -9,6 +9,9 @@ class ReviewsController < ApplicationController
     game = Game.find_by(name: params[:game_name])
     review = current_user.reviews.new(review_params)
     review.game_id = game.id
+    review.story = 0.5 if review.story.blank?
+    review.system = 0.5 if review.system.blank?
+    review.total = 0.5 if review.total.blank?
     review.save
     redirect_to game_path(game.name)
   end
