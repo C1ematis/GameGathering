@@ -1,7 +1,7 @@
 class GamesController < ApplicationController
 
   # ログイン済ユーザーのみにアクセスを許可する
-  before_action :authenticate_user!, except:[:index,:show]
+  before_action :authenticate_user!, except:[:index,:show,:autocomplete_games]
 
   def new
     @game = Game.new

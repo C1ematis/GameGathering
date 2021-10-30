@@ -3,7 +3,7 @@
   <div>
     <strong><%= machine.name %></strong>
     <%= link_to games_path(commit: "検索",machine_ids: machine.id), class:"balloon-base" do %>
-      <i class="fas fa-search font-blue"></i><span class="balloon">「<%= machine.name %>」でゲームを検索</span>
+      <i class="fas fa-search font-blue"></i><span class="balloon">「<%= machine.name %>」でゲームをサイト内検索</span>
     <% end %>
   </div>
   <div class="ml-1 mb-1"><%= machine.body %></div>

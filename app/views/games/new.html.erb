@@ -1,9 +1,13 @@
 <h1>ゲーム投稿</h1>
-<input placeholder="ゲームタイトル検索" class="autocomplete-title" type="search" name="word" >
+<div>
+  <span>ゲームの登録で重複を防ぐため読み仮名の入力をお願いします。また省略せずに入力してください</span><br>
+  <span>✖：ドラクエ(どらくえ) &emsp;〇：Dragon Quest(ドラゴンクエスト)</span>
+
+</div>
 <%= form_with model: @game do |f| %>
   <div>
-    <%= f.text_field :name, placeholder: "ゲームタイトル"%>
-    <%= f.text_field :kana, placeholder: "ゲームタイトル(かな)" %>
+    <%= f.text_field :name, placeholder: "ゲームタイトル", class:"autocomplete-title"%>
+    <%= f.text_field :kana, placeholder: "ゲームタイトル(読み仮名)", class:"autocomplete-title" %>
   </div>
   <div>
     <%= f.text_area :body, placeholder: "ゲーム概要", oninput: "textAreaHeightSet(this)", onchange: "textAreaHeightSet(this)", class:"text_area" %>

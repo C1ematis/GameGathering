@@ -193,17 +193,17 @@
       <ul>
         <% @game.game_coments.roots.last(10).each do |coment_root| %>
           <li>
-            <%= f.radio_button :ancestry, coment_root.id %><%= coment_root.body %> --<%= coment_root.name %> <%= coment_root.created_at %>
+            <%= f.radio_button :ancestry, coment_root.id %><%= coment_root.body %> -- <%= coment_root.name %> <%= coment_root.created_at.strftime("%Y/%m/%d %H:%M:%S") %>
             <% if coment_root.present? && coment_root.has_children? %>
               <ul>
                 <% coment_root.children.each do |coment_child| %>
                   <li>
-                    <%= f.radio_button :ancestry, coment_child.id %><%= coment_child.body %> --<%= coment_child.name %> <%= coment_child.created_at %>
+                    <%= f.radio_button :ancestry, coment_child.id %><%= coment_child.body %> -- <%= coment_child.name %> <%= coment_child.created_at.strftime("%Y/%m/%d %H:%M:%S") %>
                     <% if coment_child.present? && coment_child.has_children? %>
                       <ul>
                         <% coment_child.children.each do |coment| %>
                           <li>
-                            <%= coment.body %> --<%= coment.name %> <%= coment.created_at %>
+                            <%= coment.body %> -- <%= coment.name %> <%= coment.created_at.strftime("%Y/%m/%d %H:%M:%S") %>
                           </li>
                         <% end %>
                       </ul>
