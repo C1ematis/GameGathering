@@ -37,14 +37,16 @@
       <%= f.hidden_field :page, value: request.path %>
       <%= f.submit "挿入" %>
     </div>
-  <h3>管理に携わりたい方はこちら</h3>
-    <div class="mt-2 mb-5">
-      <% user_name = user_signed_in? ? current_user.name : "" %>
-      <%= f.radio_button :ancestry,"root", checked: true %>
-      <%= f.text_field :name, placeholder: "名前",value: "#{user_name}", class:"coment-name" %>
-      <%= f.text_field :body, placeholder: "コメント", class:"coment-body",autocomplete:"off" %>
-      <%= f.hidden_field :page, value: "/admins/reques" %>
-      <%= f.submit "挿入" %>
-    </div>
   </div>
 <% end %>
+<h3>管理に携わりたい方はこちら</h3>
+<div class="mt-2 mb-5">
+  <%= form_with( model: @coment, url: coments_path, local: true) do |f| %>
+    <% user_name = user_signed_in? ? current_user.name : "" %>
+    <%= f.radio_button :ancestry,"root", checked: true %>
+    <%= f.text_field :name, placeholder: "名前",value: "#{user_name}", class:"coment-name" %>
+    <%= f.text_field :body, placeholder: "コメント", class:"coment-body",autocomplete:"off" %>
+    <%= f.hidden_field :page, value: "/admins/reques" %>
+    <%= f.submit "挿入" %>
+  <% end %>
+</div>
