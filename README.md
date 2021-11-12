@@ -37,7 +37,4 @@ https://docs.google.com/spreadsheets/d/1cxSXTDflwNz_hervXeqfft2JxGfeZaMIvpbY2N66
 - JSライブラリ：jQuery
 - IDE：Cloud9
 
-## 使用素材
-- 外部サービスの画像素材・音声素材を使用した場合は、必ずサービス名とURLを明記する。
-
 [^1]: 大企業ではなく低予算、低人数で開発したゲームの事。パブリッシャーが居ないこともあるため、先鋭的や独創的なゲームを作製できる。
